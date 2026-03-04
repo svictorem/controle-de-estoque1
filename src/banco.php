@@ -18,7 +18,7 @@ try {
 
     echo "Conexão com o banco de dados estabelecida com sucesso!";
 
-} catch (\Throwable $th) {
+} catch (\Throwable $erro) {
     //lançalvel serve para qualquer tipo de erro ou exceção
     //captura de erro caso a conexão falhe
     die("Erro ao conectar com banco de dados: " . $erro->getMessage());
