@@ -34,7 +34,8 @@ require_once BASE_PATH . '/includes/cabecalho.php';
             </thead>
             <tbody>
                 
-                <?php foreach ($usuario as $usuario) : ?>
+                
+            <?php foreach ($usuario as $usuario) : ?>
                     <tr> 
                         <td><?= $usuario['id']?></td>
                         <td><?= $usuario['nome']?></td>
