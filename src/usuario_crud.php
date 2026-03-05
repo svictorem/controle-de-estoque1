@@ -9,5 +9,7 @@ function buscarUsuario(PDO $conexao){
 
     $consulta = $conexao->prepare($sql);
     $consulta->execute();
+
+    
     return $consulta->fetchAll(PDO::FETCH_ASSOC);
 }

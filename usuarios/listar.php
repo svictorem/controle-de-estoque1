@@ -4,9 +4,9 @@ require_once BASE_PATH . '/src/usuario_crud.php';
 
 $usuario = buscarUsuario($conexao);
 
-echo "<pre>";
+/*echo "<pre>";
 var_dump($usuario);
-echo "</pre>";
+echo "</pre>";*/
 
 $titulo = "Usuários |";
 require_once BASE_PATH . '/includes/cabecalho.php';
