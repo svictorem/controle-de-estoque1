@@ -13,7 +13,7 @@ $usuario = buscarUsuarioPorId($conexao, $id);
 
 if(isset($_GET['confirmar'])){
     if(excluirUsuario($conexao, $id)){
-        header('Location: listar.php');
+        header('Location: listar.php?status=excluido');
         exit;
     }else{
         die("Erro ao tentar excluir o usuario");
