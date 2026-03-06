@@ -30,10 +30,36 @@ function buscarUsuarioPorId(PDO $conexao, $id){
     $sql = "SELECT * FROM usuarios WHERE id = :id";
 
     $consulta = $conexao->prepare($sql);
-    $consulta->bindValue(':id', $id, PDO::PARAM_INT);
+    $consulta->bindValue(':id', $id);
 
     
     $consulta->execute();
 
     return $consulta->fetch(PDO::FETCH_ASSOC);
+}
+
+function editarUsuario(PDO $conexao, $id, $nome, $email, $senha){
+
+    $sql = "UPDATE usuarios SET nome = :nome, email = :email";
+
+    if (!empty($senha)) {
+        $hash =password_hash($senha, PASSWORD_DEFAULT);
+        $sql .= ", senha = :senha ";
+    }
+
+    $sql .= " WHERE id = :id";
+
+    $consulta = $conexao->prepare($sql);
+
+    $consulta->bindValue(':id', $id, PDO::PARAM_INT);
+    $consulta->bindValue(':nome', $nome);
+    $consulta->bindValue(':email', $email);
+
+    if (!empty($senha)) {
+        $consulta->bindValue(':senha', $hash);
+    }
+
+
+    
+    return $consulta->execute();
 }

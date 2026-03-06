@@ -16,7 +16,7 @@ try {
 
     $conexao -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    echo "Conexão com o banco de dados estabelecida com sucesso!";
+    //echo "Conexão com o banco de dados estabelecida com sucesso!";
 
 } catch (\Throwable $erro) {
     //lançalvel serve para qualquer tipo de erro ou exceção

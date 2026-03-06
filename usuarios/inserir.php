@@ -17,7 +17,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             ':senha' => password_hash($senha, PASSWORD_DEFAULT)
         ]);
 
-        header('Location: listar.php');
+        header('Location: listar.php?status=sucesso');
         exit;
     }else{
         echo "<div class='alert alert-danger'>Todos os campos são obrigatórios.</div>";
