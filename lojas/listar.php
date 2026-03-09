@@ -1,6 +1,12 @@
 <?php
 require_once __DIR__ . '/../config.php';
+require_once BASE_PATH . '/src/loja_crud.php';
 
+$lojas = buscarLoja($conexao);
+
+/*echo "<pre>";
+var_dump($lojas);
+echo "</pre>";*/
 
 $titulo = "Lojas |";
 require_once BASE_PATH . '/includes/cabecalho.php';
@@ -25,10 +31,11 @@ require_once BASE_PATH . '/includes/cabecalho.php';
                 </tr>
             </thead>
             <tbody>
-                
+
+                <?php foreach ($lojas as $lojas) : ?>
                     <tr>
-                        <td>ID da loja...</td>
-                        <td>Nome da loja...</td>
+                        <td><?= $lojas['id']?></td>
+                        <td><?= $lojas['nome']?></td>
                         <td class="text-end">
                             <a class="btn btn-warning btn-sm" href="editar.php"><i class="bi bi-pencil-square"></i> Editar</a>
                         </td>
@@ -36,6 +43,7 @@ require_once BASE_PATH . '/includes/cabecalho.php';
                             <a class="btn btn-danger btn-sm" href="excluir.php"><i class="bi bi-trash"></i> Excluir</a>
                         </td>
                     </tr>
+                <?php endforeach; ?>
                 
             </tbody>
         </table>
