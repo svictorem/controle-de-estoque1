@@ -1,6 +1,9 @@
 <?php
 require_once __DIR__ . '/../config.php';
+require_once BASE_PATH . '/src/produto_crud.php';
 
+$produto = buscarProduto($conexao);
+$detalhesProduto = buscarDetalhesProduto($conexao);
 
 $titulo = "Produtos |";
 require_once BASE_PATH . '/includes/cabecalho.php';
@@ -9,7 +12,30 @@ require_once BASE_PATH . '/includes/cabecalho.php';
 <section class="text-center mb-4 border rounded-3 p-4 border-primary-subtle">
     <h3><i class="bi bi-box-fill"></i> Lista de Produtos</h3>
 
+    <?php
+    if (isset($_GET['status'])) :
+        $mensagem = "";
+        $classe = "alert-success";
 
+        switch ($_GET['status']) {
+            case 'excluido':
+                $mensagem = "Produto removido com sucesso!";
+                $classe = "alert-danger"; // Vermelho para exclusão
+                break;
+            case 'atualizado':
+                $mensagem = "Dados atualizados com sucesso!";
+                break;
+            case 'sucesso':
+                $mensagem = "Novo produto cadastrado!";
+                break;
+        }
+    ?>	
+
+ <div class="alert <?= $classe ?> alert-dismissible fade show w-75 mx-auto mb-4" role="alert">
+            <i class="bi bi-info-circle"></i> <?= $mensagem ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <?php endif; ?>
 
     <p class="text-center my-4">
         <a href="inserir.php" class="btn btn-primary"><i class="bi bi-plus-circle"></i> Adicionar Novo Produto</a>
@@ -26,11 +52,11 @@ require_once BASE_PATH . '/includes/cabecalho.php';
         </div>
     </form>
 
-    
+
 
     <div class="table-responsive">
         <table class="table table-hover align-middle caption-top">
-            <caption>Quantidade de registros: 0</caption>
+            <caption>Quantidade de registros: <?= count($produto) ?></caption>
             <thead class="align-middle table-light">
                 <tr>
                     <th>Nome</th>
@@ -42,13 +68,20 @@ require_once BASE_PATH . '/includes/cabecalho.php';
                 </tr>
             </thead>
             <tbody>
-                
+
+                <?php foreach ($produto as $produto) : ?>
                     <tr>
-                        <td>Nome...</td>
-                        <td>Descrição...</td>
-                        <td>Fornecedor...</td>
-                        <td>Preço...</td>
-                        <td>21/12/1975</td>
+                        <td><?= $produto['nome'] ?></td>
+                        <td><?= $produto['descricao'] ?></td>
+                        <td><?= $produto['nome_fornecedor'] ?></td>
+                        <td>R$ <?= number_format($produto['preco'], 2, ',', '.') ?></td>
+                        <?php foreach ($detalhesProduto as $detalhe) : ?>
+                            <?php if ($detalhe['produto_id'] === $produto['id']) : ?>
+                                <td>
+                                    <?= !empty($detalhe['data_validade']) ? date('d/m/Y', strtotime($detalhe['data_validade'])) : 'Sem validade' ?>
+                                </td>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
                         <td class="text-end">
                             <a class="btn btn-warning btn-sm" href="editar.php"><i class="bi bi-pencil-square"></i> Editar</a>
                         </td>
@@ -56,7 +89,7 @@ require_once BASE_PATH . '/includes/cabecalho.php';
                             <a class="btn btn-danger btn-sm" href="excluir.php"><i class="bi bi-trash"></i> Excluir</a>
                         </td>
                     </tr>
-                
+                <?php endforeach; ?>
             </tbody>
         </table>
     </div>

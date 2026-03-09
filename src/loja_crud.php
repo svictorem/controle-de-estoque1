@@ -38,7 +38,7 @@ function buscarLojaPorId(PDO $conexao, $id){
     return $consulta->fetch(PDO::FETCH_ASSOC);
 }
 
-function editarLoja(PDO $conexao, $id, $nome, $email, $senha){
+function editarLoja(PDO $conexao, $id, $nome){
 
     $sql = "UPDATE lojas SET nome = :nome WHERE id = :id";
 

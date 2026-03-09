@@ -1,6 +1,24 @@
 <?php
 require_once __DIR__ . '/../config.php';
 
+if($_SERVER['REQUEST_METHOD'] === 'POST'){
+    $nome = ($_POST['nome']);
+
+    //echo $nome;
+
+    if($nome){
+        $sql = "INSERT INTO lojas (nome) VALUES (:nome)";
+        $stmt = $conexao->prepare($sql);
+        $stmt->execute([
+            ':nome' => $nome,
+        ]);
+
+        header('Location: listar.php?status=sucesso');
+        exit;
+    }else{
+        echo "<div class='alert alert-danger'>Todos os campos são obrigatórios.</div>";
+    }
+}
 
 $titulo = "Adicionar Loja |";
 require_once BASE_PATH . '/includes/cabecalho.php';
