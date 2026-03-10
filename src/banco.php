@@ -1,7 +1,7 @@
 <?php 
 $servidor = "localhost";
 $usuario = "root";
-$senha = "";
+$senha = "12345";
 $banco = "estoque";
 
 //conexão com o banco de dados
